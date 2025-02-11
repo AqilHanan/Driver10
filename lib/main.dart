@@ -14,7 +14,7 @@ void main() async {
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  static int screenTime_hour = 15;
+  static int screenTime_hour = 13; // 13/1PM 15/3PM to afternoon service
   static int screenTime_min = 00;
 
   @override
