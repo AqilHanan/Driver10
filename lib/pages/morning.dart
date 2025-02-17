@@ -311,7 +311,8 @@ class _Morning_PageState extends State<Morning_Page> with WidgetsBindingObserver
 
   Future<void> getTime() async {
     try {
-      final uri = Uri.parse('https://worldtimeapi.org/api/timezone/Singapore');
+      final uri = Uri.parse('https://www.timeapi.io/api/time/current/zone?timeZone=ASIA%2FSINGAPORE');
+      // final uri = Uri.parse('https://worldtimeapi.org/api/timezone/Singapore');
       print("Printing URI");
       print(uri);
       final response = await get(uri);
@@ -323,17 +324,45 @@ class _Morning_PageState extends State<Morning_Page> with WidgetsBindingObserver
       print(response.body);
       Map data = jsonDecode(response.body);
       print(data);
-      String datetime = data['datetime'];
-      String offset = data['utc_offset'].substring(1, 3);
+      String datetime = data['dateTime']; //timeapi.io uses dateTime not datetime
+      //String offset = data['utc_offset'].substring(1, 3);
+
       setState(() {
         now = DateTime.parse(datetime);
-        now = now.add(Duration(hours: int.parse(offset)));
+        //now = now.add(Duration(hours: int.parse(offset)));
+        print('Printing Time: $now');
       });
     }
     catch (e) {
       print('caught error: $e');
     }
   }
+
+  // Future<void> getTime() async {
+  //   try {
+  //     final uri = Uri.parse('https://worldtimeapi.org/api/timezone/Singapore');
+  //     print("Printing URI");
+  //     print(uri);
+  //     final response = await get(uri);
+  //     print("Printing response");
+  //     print(response);
+  //
+  //     // Response response = await get(
+  //     //     Uri.parse('https://worldtimeapi.org/api/timezone/Singapore'));
+  //     print(response.body);
+  //     Map data = jsonDecode(response.body);
+  //     print(data);
+  //     String datetime = data['datetime'];
+  //     String offset = data['utc_offset'].substring(1, 3);
+  //     setState(() {
+  //       now = DateTime.parse(datetime);
+  //       now = now.add(Duration(hours: int.parse(offset)));
+  //     });
+  //   }
+  //   catch (e) {
+  //     print('caught error: $e');
+  //   }
+  // }
 
   void updateTimeManually(){
     setState(() {
